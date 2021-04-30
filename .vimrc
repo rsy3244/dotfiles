@@ -15,7 +15,7 @@ set undofile
 set undodir=~/.vim/undofiles
 
 autocmd BufWinLeave ?* silent mkview
-autocmd BufWinEnter ?* silent loadview
+autocmd BufWinEnter ?* silent! loadview
 
 autocmd BufNewFile *.c 0r ~/.vim/template/c.txt
 autocmd BufNewFile *.cpp 0r ~/.vim/template/cpp.txt
@@ -29,19 +29,15 @@ let maplocalleader = "\\"
 
 noremap <leader>t :NERDTreeTabsToggle<CR>
 
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 call plug#begin('~/.vim/plugged')
 Plug 'lervag/vimtex'
 Plug 'scrooloose/nerdtree'
 Plug 'posva/vim-vue'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'rust-lang/rust.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'qnighy/satysfi.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 syntax on
 
@@ -60,7 +56,7 @@ let g:vimtex_compiler_latexmk={
 	\	
 	\],
 	\}
-let g:vimtex_view_method='skim'
+let g:vimtex_view_method='mupdf'
 let g:vimtex_view_automatic=1 
 
 let NERDTreeIgnore = ['\.fls$', '\.dvi', '\.aux', '\.fdb_latexmk', '\.nav', '\.snm', '\.synctex.gz', '\.toc']
@@ -69,5 +65,18 @@ let g:tex_flavor = "latex"
 "rust.vim configure
 let g:rustfmt_autosave = 1
 
+"vim-go configure
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
+set updatetime=300
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+	\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 filetype plugin indent on

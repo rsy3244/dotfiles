@@ -14,4 +14,4 @@ $pdf_mode = 3;
 $out_dir = 'build';
 # Prevent latexmk from removing PDF after typeset.
 $pvc_view_file_via_temporary = 0;
-$pdf_previewer = "open -ga /Applications/Skim.app";
+$pdf_previewer = "mupdf";
