@@ -8,11 +8,11 @@ set hlsearch
 set backspace=indent,eol,start
 
 set backup
-set backupdir=~/.vim/backupfiles
+set backupdir=~/.config/nvim/backupfiles
 set swapfile
-set directory=~/.vim/swapfiles
+set directory=~/.config/nvim/swapfiles
 set undofile
-set undodir=~/.vim/undofiles
+set undodir=~/.config/nvim/undofiles
 
 autocmd BufWinLeave ?* silent mkview
 autocmd BufWinEnter ?* silent loadview
